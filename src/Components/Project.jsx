@@ -19,12 +19,12 @@ export default function Projects() {
       image: "https://images.ctfassets.net/y2ske730sjqp/1aONibCke6niZhgPxuiilC/2c401b05a07288746ddf3bd3943fbc76/BrandAssets_Logos_01-Wordmark.jpg?w=940"
     },
     {
-      title: "Apex Analytics Dashboard",
+      title: "My Portfolio",
       category: "FinTech Data Tracking",
       description: "A premium modern financial dashboard utilizing live webhooks data to render cryptocurrency market analysis graphs with crisp transitions.",
-      tech: ["React.js", "Tailwind CSS", "Chart.js"],
-      liveLink: "https://your-crypto-dashboard.vercel.app",
-      image: "/enside.png"
+      tech: ["React.js", "Tailwind CSS", "JavaScript.js"],
+      liveLink: "https://my-portfolio-six-teal-20.vercel.app/",
+      image: "/portfolio.png"
     }
   ];
 
