@@ -27,7 +27,7 @@ export default function Navbar() {
         <div className="hidden space-x-2 font-sans text-sm font-medium tracking-wide text-stone-600 lg:flex">
           <a href="#home" className="px-3 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl text-[#14342b] font-semibold transition-all duration-300">Home</a>
           <a href="#about" className="px-3 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b] transition-all duration-300">About Me</a>
-          <a href="#services" className="px-3 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b] transition-all duration-300">Skills</a>
+          <a href="#skills" className="px-3 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b] transition-all duration-300">Skills</a>
           <a href="#portfolio" className="px-3 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b] transition-all duration-300">Projects</a>
           <a href="#reviews" className="px-3 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b] transition-all duration-300">Reviews</a>
           
@@ -85,7 +85,7 @@ export default function Navbar() {
         <div className="lg:hidden border-t border-stone-200 bg-[#fbf9f4] px-4 py-4 space-y-2 font-sans text-sm font-medium text-stone-600">
           <a onClick={() => setIsOpen(false)} href="#home" className="block px-4 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl text-[#14342b] font-semibold">Home</a>
           <a onClick={() => setIsOpen(false)} href="#about" className="block px-4 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b]">About Me</a>
-          <a onClick={() => setIsOpen(false)} href="#services" className="block px-4 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b]">Skills</a>
+          <a onClick={() => setIsOpen(false)} href="#skills" className="block px-4 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b]">Skills</a>
           <a onClick={() => setIsOpen(false)} href="#portfolio" className="block px-4 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b]">Project</a>
           <a onClick={() => setIsOpen(false)} href="#reviews" className="block px-4 py-2 border border-transparent hover:border-[#14342b]/60 rounded-xl hover:text-[#14342b]">Reviews</a>
           
