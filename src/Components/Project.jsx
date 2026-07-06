@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function Projects() {
+// 1. Component header par isDarkMode prop accept kiya
+export default function Projects({ isDarkMode }) {
   const projectsData = [
     {
       title: "E-Side Web Clone",
@@ -29,49 +30,71 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="w-full bg-[#fbf9f4] text-[#14342b] py-14 md:py-20 px-6 sm:px-8 md:px-16 border-t border-stone-200">
+    // 2. Section dynamic theme structural tracking set ki
+    <section 
+      id="projects" 
+      className={`w-full py-14 md:py-20 px-6 sm:px-8 md:px-16 border-t transition-colors duration-500 ${
+        isDarkMode ? 'bg-[#14342b] text-[#fbf9f4] border-stone-800' : 'bg-[#fbf9f4] text-[#14342b] border-stone-200'
+      }`}
+    >
       <div className="mx-auto max-w-5xl">
         
         {/* SECTION HEADER */}
         <div className="flex flex-col items-center text-center space-y-2 mb-12 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]">
-          <div className="flex items-center space-x-2 text-xs font-bold tracking-widest uppercase text-stone-500">
-            <span className="w-4 h-[1.5px] bg-[#14342b]/60"></span>
+          <div className={`flex items-center space-x-2 text-xs font-bold tracking-widest uppercase transition-colors duration-500 ${
+            isDarkMode ? 'text-stone-400' : 'text-stone-500'
+          }`}>
+            <span className={`w-4 h-[1.5px] ${isDarkMode ? 'bg-[#fbf9f4]/60' : 'bg-[#14342b]/60'}`}></span>
             <span>My Showcase</span>
-            <span className="w-4 h-[1.5px] bg-[#14342b]/60"></span>
+            <span className={`w-4 h-[1.5px] ${isDarkMode ? 'bg-[#fbf9f4]/60' : 'bg-[#14342b]/60'}`}></span>
           </div>
           <h2 className="font-serif text-4xl sm:text-5xl font-medium tracking-tight">
             My Projects<span className="text-amber-600">.</span>
           </h2>
         </div>
 
-        {/* PROJECTS GRID - Changed to items-start to avoid forced vertical stretching */}
+        {/* PROJECTS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
           {projectsData.map((project, index) => (
             <div 
               key={index}
-              className="bg-white rounded-[1.8rem] border-2 border-[#14342b]/80 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-all duration-300 group opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
+              className={`rounded-[1.8rem] shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-md transition-all duration-300 group opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] border-2 ${
+                isDarkMode 
+                  ? 'bg-[#1a3f35] border-stone-700 hover:border-[#fbf9f4]' 
+                  : 'bg-white border-[#14342b]/80 hover:border-[#14342b]'
+              }`}
               style={{ animationDelay: `${index * 120}ms` }}
             >
               <div>
-                {/* PROJECT IMAGE OVERLAY - Reduced height significantly using 21/9 aspect ratio */}
-                <div className="relative overflow-hidden aspect-[21/9] md:aspect-[16/8] border-b-2 border-[#14342b]/80">
+                {/* PROJECT IMAGE OVERLAY */}
+                <div className={`relative overflow-hidden aspect-[21/9] md:aspect-[16/8] border-b-2 transition-colors duration-500 ${
+                  isDarkMode ? 'border-stone-700' : 'border-[#14342b]/80'
+                }`}>
                   <img 
                     src={project.image} 
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
-                  <div className="absolute inset-0 bg-[#14342b]/5 group-hover:bg-transparent transition-colors duration-300"></div>
+                  <div className={`absolute inset-0 transition-colors duration-300 ${
+                    isDarkMode ? 'bg-black/10 group-hover:bg-transparent' : 'bg-[#14342b]/5 group-hover:bg-transparent'
+                  }`}></div>
                 </div>
 
-                {/* PROJECT INFO CONTENT - Slightly reduced padding for a tighter look */}
+                {/* PROJECT INFO CONTENT */}
                 <div className="p-4 sm:p-5 space-y-2">
-                  <span className="text-[9px] font-bold text-stone-500 uppercase tracking-widest block">
+                  <span className={`text-[9px] font-bold uppercase tracking-widest block transition-colors duration-500 ${
+                    isDarkMode ? 'text-stone-400' : 'text-stone-500'
+                  }`}>
                     {project.category}
                   </span>
-                  <h3 className="font-serif text-lg font-bold tracking-tight leading-tight">
+                  <h3 className={`font-serif text-lg font-bold tracking-tight leading-tight transition-colors duration-500 ${
+                    isDarkMode ? 'text-[#fbf9f4]' : 'text-[#14342b]'
+                  }`}>
                     {project.title}
                   </h3>
-                  <p className="text-xs text-stone-600 font-sans leading-relaxed line-clamp-3">
+                  <p className={`text-xs font-sans leading-relaxed line-clamp-3 transition-colors duration-500 ${
+                    isDarkMode ? 'text-stone-300/90' : 'text-stone-600'
+                  }`}>
                     {project.description}
                   </p>
                 </div>
@@ -84,7 +107,11 @@ export default function Projects() {
                   {project.tech.map((tech, tIdx) => (
                     <span 
                       key={tIdx} 
-                      className="text-[8px] font-bold bg-[#14342b]/5 text-[#14342b] px-2 py-0.5 rounded-md tracking-wide"
+                      className={`text-[8px] font-bold px-2 py-0.5 rounded-md tracking-wide transition-colors duration-500 ${
+                        isDarkMode 
+                          ? 'bg-[#14342b] text-[#fbf9f4]' 
+                          : 'bg-[#14342b]/5 text-[#14342b]'
+                      }`}
                     >
                       {tech}
                     </span>
@@ -96,7 +123,11 @@ export default function Projects() {
                   href={project.liveLink}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center py-2 px-4 rounded-xl bg-[#14342b] text-[#fbf9f4] font-bold text-xs tracking-wider hover:bg-transparent hover:text-[#14342b] border border-transparent hover:border-[#14342b]/80 transition-all duration-300 shadow-sm"
+                  className={`w-full inline-flex items-center justify-center py-2 px-4 rounded-xl font-bold text-xs tracking-wider border transition-all duration-300 shadow-sm ${
+                    isDarkMode 
+                      ? 'bg-[#fbf9f4] text-[#14342b] border-transparent hover:bg-transparent hover:text-[#fbf9f4] hover:border-[#fbf9f4]' 
+                      : 'bg-[#14342b] text-[#fbf9f4] border-transparent hover:bg-transparent hover:text-[#14342b] hover:border-[#14342b]/80'
+                  }`}
                 >
                   Launch Live Demo ↗
                 </a>
