@@ -17,8 +17,8 @@ export default function AuthModal({ isOpen, onClose, isDarkMode }) {
 
     // Dynamic URL based on current view (Login ya Signup)
     const apiUrl = isLoginView 
-      ? 'http://localhost:5000/api/auth/login' 
-      : 'http://localhost:5000/api/auth/signup';
+      ? '/api/auth/login' 
+      : '/api/auth/signup';
 
     try {
       const response = await fetch(apiUrl, {
