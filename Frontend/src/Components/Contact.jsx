@@ -1,20 +1,52 @@
 import React, { useState } from 'react';
 
-// 1. Component header par isDarkMode prop receive kiya
+// Component header par isDarkMode prop receive kiya
 export default function Contact({ isDarkMode }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  
+  // Nayi State: Loading spinner aur success/error messages handle karne ke liye
+  const [status, setStatus] = useState({ loading: false, success: '', error: '' });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    alert("Thank you! Your message has been received.");
-    setFormData({ name: '', email: '', message: '' });
+    
+    // Request start hote hi loading true aur purane messages clear
+    setStatus({ loading: true, success: '', error: '' });
+
+    try {
+      // Browser ke built-in fetch se API hit ki
+      const response = await fetch('http://localhost:5000/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Success par input fields clear aur green notification set
+        setStatus({ loading: false, success: 'Thank you! Your message has been saved in MongoDB. 🎉', error: '' });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        // Agar backend error return kare (jaise validation issue)
+        setStatus({ loading: false, success: '', error: data.error || 'Something went wrong.' });
+      }
+    } catch (err) {
+      console.error("Connection Error:", err);
+      setStatus({ 
+        loading: false, 
+        success: '', 
+        error: 'Server connection failed! Please make sure your Node.js backend is running on port 5000.' 
+      });
+    }
   };
 
   const contactInfo = [
     {
       type: "Email Address",
-      value: "zainulabedeen2418@gmail.com", // Dynamic display corrected with '@' symbol
+      value: "zainulabedeen2418@gmail.com",
       link: "mailto:zainulabedeen2418@gmail.com",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -45,7 +77,6 @@ export default function Contact({ isDarkMode }) {
   ];
 
   return (
-    // 2. Main layout tracking settings update kiya
     <section 
       id="contact" 
       className={`w-full py-14 md:py-20 px-6 sm:px-8 md:px-16 overflow-hidden border-t transition-colors duration-500 ${
@@ -176,15 +207,22 @@ export default function Contact({ isDarkMode }) {
 
               <button 
                 type="submit"
+                disabled={status.loading}
                 className={`w-full py-3 px-4 rounded-xl font-bold text-sm tracking-wider border transition-all duration-300 shadow-sm mt-2 ${
+                  status.loading ? 'opacity-50 cursor-not-allowed' : ''
+                } ${
                   isDarkMode 
                     ? 'bg-[#fbf9f4] text-[#14342b] border-transparent hover:bg-transparent hover:text-[#fbf9f4] hover:border-[#fbf9f4]' 
                     : 'bg-[#14342b] text-[#fbf9f4] border-transparent hover:bg-transparent hover:text-[#14342b] hover:border-[#14342b]/80'
                 }`}
               >
-                Send Message ↗
+                {status.loading ? 'Sending Message...' : 'Send Message ↗'}
               </button>
             </form>
+
+            {/* STATUS UI NOTIFICATIONS */}
+            {status.success && <p className="text-emerald-500 font-sans text-xs font-semibold mt-4 text-center">{status.success}</p>}
+            {status.error && <p className="text-rose-500 font-sans text-xs font-semibold mt-4 text-center">{status.error}</p>}
           </div>
 
         </div>
@@ -197,7 +235,6 @@ export default function Contact({ isDarkMode }) {
             © {new Date().getFullYear()} Zain Ul Abedeen. All rights reserved. Built with pixel-perfection.
           </div>
           
-          {/* Social Links Icons Array */}
           <div className={`flex items-center space-x-5 transition-colors duration-500 ${isDarkMode ? 'text-[#fbf9f4]/70' : 'text-[#14342b]/70'}`}>
             <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-amber-600 transition-colors duration-300" title="GitHub">
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">

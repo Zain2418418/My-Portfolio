@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-// 1. App.jsx se aane wale parameters ko yahan accept kiya
-export default function Navbar({ isDarkMode, onToggleTheme }) {
+// 1. App.jsx se aane wale parameters ko accept kiya + onAuthClick prop add kiya
+export default function Navbar({ isDarkMode, onToggleTheme, onAuthClick }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -61,28 +61,43 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
           }`}>Contact</a>
         </div>
 
-        {/* RIGHT SIDE: Theme Controller, LinkedIn & Hamburger */}
+        {/* RIGHT SIDE: Theme, Auth, LinkedIn & Hamburger */}
         <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
           
-          {/* Moon/Sun Icon Button (Ab functional hai) */}
+          {/* Moon/Sun Icon Button */}
           <button
-            onClick={onToggleTheme} // Click handler yahan connect kiya
+            onClick={onToggleTheme}
             className={`flex h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center rounded-xl border bg-transparent transition-all duration-300 relative ${
               isDarkMode ? 'border-stone-700 text-[#fbf9f4] hover:border-[#fbf9f4]/60' : 'border-stone-300 text-stone-700 hover:border-[#14342b]/60'
             }`}
           >
             {isDarkMode ? (
-              /* Sun Icon for Light Mode when in Dark Mode */
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m0 13.5V21M4.22 4.22l1.58 1.58m12.42 12.42l1.58 1.58M3 12h2.25m13.5 0H21M4.22 19.78l1.58-1.58M17.64 6.36l1.58-1.58M12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9Z" />
               </svg>
             ) : (
-              /* Moon Icon for Dark Mode when in Light Mode */
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 text-stone-800">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25c0 5.385 4.365 9.75 9.75 9.75 4.523 0 8.354-3.209 9.272-7.498Z" />
               </svg>
             )}
             <span className="absolute bottom-1 h-1 w-1 rounded-full bg-amber-600"></span>
+          </button>
+
+          {/* NEW BUTTON: Portal Access (Signup / Login Trigger) */}
+          <button
+            onClick={onAuthClick}
+            className={`flex h-9 sm:h-10 px-3 sm:px-4 flex-shrink-0 items-center justify-center rounded-xl font-sans text-xs sm:text-sm font-bold tracking-wider uppercase border-2 transition-all duration-300 shadow-sm whitespace-nowrap ${
+              isDarkMode 
+                ? 'border-amber-600 text-amber-500 hover:bg-amber-600 hover:text-[#14342b]' 
+                : 'border-[#14342b] text-[#14342b] hover:bg-[#14342b] hover:text-[#fbf9f4]'
+            }`}
+          >
+            {/* Mobile View Icon */}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 sm:hidden">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            </svg>
+            {/* Desktop View Text */}
+            <span className="hidden sm:inline">Portal Access</span>
           </button>
 
           {/* LinkedIn Button */}
@@ -135,6 +150,14 @@ export default function Navbar({ isDarkMode, onToggleTheme }) {
           <a onClick={() => setIsOpen(false)} href="#projects" className="block px-4 py-2 border border-transparent rounded-xl hover:text-amber-500">Projects</a>
           <a onClick={() => setIsOpen(false)} href="#reviews" className="block px-4 py-2 border border-transparent rounded-xl hover:text-amber-500">Reviews</a>
           <a onClick={() => setIsOpen(false)} href="#contact" className="block px-4 py-2 border border-transparent rounded-xl hover:text-amber-500">Contact</a>
+          
+          {/* Mobile Drawer Auth Link */}
+          <button 
+            onClick={() => { setIsOpen(false); onAuthClick(); }} 
+            className="w-full text-left block px-4 py-2 border border-transparent rounded-xl text-amber-500 font-bold"
+          >
+            Portal Access ↗
+          </button>
         </div>
       )}
     </nav>
