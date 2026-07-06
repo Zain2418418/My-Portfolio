@@ -24,15 +24,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "Frontend/dist/$1",
-      "continue": true
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "Frontend/index.html"
+      "dest": "Frontend/dist/index.html"
     }
   ]
 }
